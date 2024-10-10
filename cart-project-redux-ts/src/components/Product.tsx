@@ -1,3 +1,6 @@
+import { addToCart } from "../store/cart-slice";
+import { useCartDispatch } from "../store/hooks";
+
 type ProductProps = {
     id: string,
     title: string,
@@ -5,7 +8,11 @@ type ProductProps = {
     image: string
 }
 
-function Product({ title, price, image }: ProductProps) {
+function Product({ id, title, price, image }: ProductProps) {
+    const dispatch = useCartDispatch();
+    function handleAddToCart() {
+        dispatch(addToCart({ id, title, price }))
+    }
     return (
         <div className="product">
             <img src={image} />
@@ -14,7 +21,7 @@ function Product({ title, price, image }: ProductProps) {
                 <p className="product-price">{price}</p>
             </div>
             <p className="product-actions">
-
+                <button onClick={handleAddToCart}>افزودن به سبد خرید </button>
             </p>
         </div>
     )
